@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Book Management System</title>
     <style>
         table {
             width: 50%;
@@ -31,24 +30,24 @@
     $books = [];
     $errors = [];
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $title = $_POST['title'] ?? '';
-        $author = $_POST['author'] ?? '';
-        $year = $_POST['year'] ?? '';
+    $author = $_POST['author'];
+    $year = $_POST['year']
+    $title = $_POST['title'];
+    
 
-        if (empty($title) || empty($author) || empty($year)) {
-            $errors[] = "All fields are required.";
-        } elseif (!is_numeric($year) || $year < 0) {
-            $errors[] = "Kindly enter valid publication year.";
-        } else {
-            try {
-                $book = new Book($title, $author, $year);
-                $books[] = $book;
-            } catch (Exception $e) {
-                $errors[] = $e->getMessage();
-            }
+    if ($title == '' || $author == -'' || $year == '') {
+        $errors[] = "Fill all the details";
+    } elseif (!is_numeric($year) || $year < 0) {
+        $errors[] = "Alphanumeric is not allowed for uyear";
+    } else {
+        try {
+            $book = new Book($title, $author, $year);
+            $books[] = $book;
+        } catch (Exception $e) {
+            $errors[] = $e->getMessage();
         }
     }
+    
 
     if (!empty($errors)) {
         foreach ($errors as $error) {

@@ -1,12 +1,12 @@
 <?php
 class Book {
-    private $title;
-    private $author;
-    private $year;
+    private string $title;
+    private string $author;
+    private number $year;
 
     public function __construct($title, $author, $year) {
-        if (empty($title) || empty($author) || !is_numeric($year) || $year < 0) {
-            throw new Exception("Invalid data.");
+        if ($title == '' || $author == '' || $year == '') {
+            throw new Exception("All fields are required");
         }
         $this->title = $title;
         $this->author = $author;
